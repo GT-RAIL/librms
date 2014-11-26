@@ -1,5 +1,6 @@
 #include <rms/condition.hpp>
 #include <sstream>
+#include <cstdlib>
 
 using namespace std;
 using namespace librms;
@@ -13,6 +14,7 @@ condition::condition(rms *client, unsigned int id, string name, unsigned int stu
   iface_id_ = iface_id;
   environment_id_ = environment_id;
   client_ = client;
+  slots_fetched_ = false;
 }
 
 unsigned int condition::get_id() const
@@ -53,25 +55,25 @@ string condition::get_modified() const
   return modified_;
 }
 
-std::vector<librms::log> &condition::get_logs()
+std::vector<slot> &condition::get_slots()
 {
-  if (!logs_fetched_)
+  if (!slots_fetched_)
   {
-//    stringstream ss;
-//    ss << "SELECT * FROM `conditions` WHERE `study_id`=" << id_ << ";";
-//    MYSQL_RES *res = client_->query(ss.str());
-//    if (res)
-//    {
-//      // parse and get it
-//      MYSQL_ROW row;
-//      while ((row = mysql_fetch_row(res)) != NULL)
-//      {
-//        condition c(client_, atoi(row[0]), string(row[1]), atoi(row[2]), atoi(row[3]), atoi(row[4]), string(row[5]), string(row[6]));
-//        conditions_.push_back(c);
-//      }
-//      mysql_free_result(res);
-      logs_fetched_ = true;
-//    }
+    stringstream ss;
+    ss << "SELECT * FROM `slots` WHERE `condition_id`=" << id_ << ";";
+    MYSQL_RES *res = client_->query(ss.str());
+    if (res)
+    {
+      // parse and get it
+      MYSQL_ROW row;
+      while ((row = mysql_fetch_row(res)) != NULL)
+      {
+        slot c(client_, atoi(row[0]), atoi(row[1]), string(row[2]), string(row[3]), string(row[4]), string(row[5]));
+        slots_.push_back(c);
+      }
+      mysql_free_result(res);
+      slots_fetched_ = true;
+    }
   }
-  return logs_;
+  return slots_;
 }

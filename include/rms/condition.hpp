@@ -3,14 +3,14 @@
 
 #include <string>
 #include <rms/rms.hpp>
-#include <rms/log.hpp>
+#include <rms/slot.hpp>
 #include <vector>
 
 namespace librms
 {
 
 class rms;
-class log;
+class slot;
 
 class condition
 {
@@ -31,14 +31,14 @@ public:
 
   std::string get_modified() const;
 
-  std::vector<librms::log> &get_logs();
+  std::vector<librms::slot> &get_slots();
 
 private:
   std::string name_, created_, modified_;
   unsigned int id_, study_id_, iface_id_, environment_id_;
-  bool logs_fetched_;
+  bool slots_fetched_;
   librms::rms *client_;
-  std::vector<librms::log> logs_;
+  std::vector<librms::slot> slots_;
 };
 
 }

@@ -33,6 +33,8 @@ set(LIBRMS_SOURCE
   src/study.cpp
   src/condition.cpp
   src/log.cpp
+  src/slot.cpp
+  src/appointment.cpp
 )
 
 ## Declare a cpp library

@@ -68,7 +68,7 @@ string study::get_modified() const
   return modified_;
 }
 
-std::vector<librms::condition> &study::get_conditions()
+std::vector<condition> &study::get_conditions()
 {
   if (!conditions_fetched_)
   {
