@@ -5,6 +5,11 @@ project(librms)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED)
+find_library(MYSQLCLIENT_LIB mysqlclient
+  HINTS /usr/lib/mysql)
+if (NOT MYSQLCLIENT_LIB)
+  message(FATAL_ERROR "mysqlclient not found")
+endif()
 
 ###################################################
 ## Declare things to be passed to other projects ##
@@ -15,7 +20,7 @@ find_package(catkin REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES rms mysqlclient
+  LIBRARIES rms ${MYSQLCLIENT_LIB}
 )
 
 ###########
@@ -43,7 +48,7 @@ add_library(rms ${LIBRMS_SOURCE})
 ## Specify libraries to link a library or executable target against
 target_link_libraries(rms
   ${catkin_LIBRARIES}
-  mysqlclient
+  ${MYSQLCLIENT_LIB}
 )
 
 #############
