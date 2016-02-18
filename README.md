@@ -1,4 +1,4 @@
-librms [![Build Status](https://api.travis-ci.org/WPI-RAIL/librms.png)](https://travis-ci.org/WPI-RAIL/librms)
+librms [![Build Status](https://api.travis-ci.org/GT-RAIL/librms.png)](https://travis-ci.org/GT-RAIL/librms)
 ======
 
 #### RMS Data Log Client Library
